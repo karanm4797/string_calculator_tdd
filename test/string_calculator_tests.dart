@@ -32,7 +32,34 @@ void main() {
     expect(
           () => calculator.add('1,-2'),
       throwsA(predicate((e) =>
-      e is Exception && e.toString().contains('Negatives not allowed: -2'))),
+      e is Exception && e.toString().contains('Negatives not allowed -> -2'))),
+    );
+  });
+
+  test('should work with large numbers', () {
+    expect(calculator.add('1111111, 1111111'), equals(2222222));
+  });
+
+  test('should throw error if text is inputted', (){
+    expect(
+          () => calculator.add('abc'),
+      throwsA(predicate((e) =>
+      e is Exception && e.toString().contains('Chars not allowed -> abc'))),
+    );
+  });
+
+  test('should work with long string', () {
+    final input = List.generate(1000, (index) => '1').join(',');
+    final result = calculator.add(input);
+    expect(result, equals(1000));
+    expect(calculator.add(input), equals(result));
+  });
+
+  test('should throw error if multiple delimiters are used', (){
+    expect(
+          () => calculator.add('//[*][%]\n1*2%3'),
+      throwsA(predicate((e) =>
+      e is Exception && e.toString().contains('Multiple delimiters not allowed -> //[*][%]\n1*2%3'))),
     );
   });
 }

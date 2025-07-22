@@ -1,8 +1,6 @@
 class StringCalculator {
-
   //String numbers calculator
   int add(String input) {
-
     //If input is empty then we will return 0
     if (input.isEmpty) {
       return 0;
@@ -11,9 +9,16 @@ class StringCalculator {
     else if (input.length == 1) {
       return int.parse(input);
     }
+    //If input is having any chars inside of it then we will throw error
+    else if (RegExp(r'[a-zA-Z]').hasMatch(input)) {
+      throw Exception('Chars not allowed -> $input');
+    }
+    //If multiple delimiters are used then we will throw error
+    else if (input.startsWith('//') && input.contains('[') && input.contains(']')) {
+      throw Exception('Multiple delimiters not allowed -> $input');
+    }
     //If there is comma separated input then we will do the calculation
     else {
-
       String delimiter = ',';
 
       //Check if different delimiter is there
@@ -33,7 +38,7 @@ class StringCalculator {
       // Check if negative numbers are there
       final negatives = numbers.where((n) => n < 0).toList();
       if (negatives.isNotEmpty) {
-        throw Exception('Negatives not allowed: ${negatives.join(',')}');
+        throw Exception('Negatives not allowed -> ${negatives.join(',')}');
       }
 
       //Return sum of the numbers
