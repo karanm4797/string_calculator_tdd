@@ -5,8 +5,9 @@ class StringCalculator {
     } else if (input.length == 1) {
       return int.parse(input);
     } else {
-      var numbers = input.split(',');
-      return int.parse(numbers[0]) + int.parse(numbers[1]);
+      final numberStrings = input.split(',');
+      final numbers = numberStrings.map(int.parse).toList();
+      return numbers.fold(0, (sum, number) => sum + number);
     }
   }
 }
