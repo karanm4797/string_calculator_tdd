@@ -5,7 +5,8 @@ class StringCalculator {
     } else if (input.length == 1) {
       return int.parse(input);
     } else {
-      final numberStrings = input.split(',');
+      final newInput = input.replaceAll('\n', ',');
+      final numberStrings = newInput.split(',');
       final numbers = numberStrings.map(int.parse).toList();
       return numbers.fold(0, (sum, number) => sum + number);
     }
