@@ -7,4 +7,12 @@ void main() {
   test('returns 0 for empty string', () {
     expect(calculator.add(''), 0);
   });
+
+  test('returns number for single input', () {
+    expect(calculator.add('7'), equals(7));
+  });
+
+  test('returns sum for two comma-separated numbers', () {
+    expect(calculator.add('3,4'), equals(7));
+  });
 }
